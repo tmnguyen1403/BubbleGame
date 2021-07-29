@@ -1,5 +1,6 @@
   // adapted from the "BouncyBubbles" example.
 
+
 int numBubbles = 20; // initial bubble count
 float enemyDiameter = 40;
 
@@ -27,6 +28,7 @@ void setup()
 {
   playerUI = new PlayerUI();
   enemies = new ArrayList<Projectile>();
+  SoundFX.setupFX(this);
   noStroke();
   smooth();
   for (int i = 0; i < numBubbles; i++) {
@@ -68,6 +70,7 @@ void mousePressed()
       else if (mouseButton == LEFT) {
         if (player.canShoot(true)) {
           player.shooting();
+          SoundFX.playPlayerDead(this);
         }
       }
 }
