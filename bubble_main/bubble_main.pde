@@ -35,7 +35,7 @@ void setup()
     //Bubble(float xin, float yin, float din, int idin, ArrayList oin) 
       Bubble b = new Bubble(random(width), 10 + random(30), enemyDiameter, i, enemies);
       //make buble float down
-       b.setVelocity(0.0, 0.5);
+       b.setVelocity(0.0, 2);
        /*
       if (i % 2 == 0) {
         b.setVelocity(0.5, 0.0);
@@ -70,7 +70,7 @@ void mousePressed()
       else if (mouseButton == LEFT) {
         if (player.canShoot(true)) {
           player.shooting();
-          SoundFX.playPlayerDead(this);
+          SoundFX.playPlayerShoot(this);
         }
       }
 }
@@ -86,6 +86,16 @@ void draw()
   
   player.update();
   player.updatePlayerProjectiles(enemies);
+  player.collide(enemies);
+  //remove enemies
+  for (int i = 0; i < enemies.size(); i++) 
+    {
+      Projectile pr = enemies.get(i);
+      if (pr.isOutOfRange()) {
+        enemies.remove(i);
+        --i;
+      }
+    }
   for (Projectile enemy : enemies)  
   {
     enemy.update();

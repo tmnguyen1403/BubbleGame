@@ -155,11 +155,30 @@ class Player
       posY = prevY;
     }
     
-    
     image(sprite, posX, posY); //display the image
    // println("Player: ", posX, posY);
     //drawTitle();
         
+  }
+  
+  void collide(ArrayList<Projectile> enemies){
+    boolean hit;
+    int i = 0;
+    while (i < enemies.size()) {
+      Projectile pr = enemies.get(i);
+      hit = pr.isCollide(posX, posY, H/3);
+      if (hit) {
+        println("Player was hit");
+        pr.destroySelf();
+        PlayerManager.decreaseLife();
+        enemies.remove(i);
+        break;
+        //destroyed enemy
+      } else {
+       // println("Did not HIT");
+      }
+      ++i;
+    }
   }
   
   void updatePlayerProjectiles(ArrayList<Projectile> enemies)
@@ -177,13 +196,21 @@ class Player
     {
       // get the current piece
       Projectile pr = projectiles.get(i);
-      if (projectiles.get(i).isBroken()) {
+      if (pr.isBroken()) {
         //b.collide();
         projectiles.remove(i);
         PlayerManager.destroyedPrs.add(pr);
         --i;
       }
+      else if (pr.isOutOfRange()) {
+        projectiles.remove(i);
+        --i;
+      }
     }
+    //Check if enemy hit player
+     
+    //println("Number enemies: ", enemies.size());
+ 
   }
 
 }

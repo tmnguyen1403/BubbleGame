@@ -1,9 +1,14 @@
 static class PlayerManager {
   static int score = 0;
+  static int life = 3;
   static ArrayList<Projectile> destroyedPrs = new ArrayList<Projectile>(); //handle destroyed projectiles
   
   static void updateScore(int by) {
     score += by;
+  }
+  
+  static void decreaseLife() {
+    life -= 1;
   }
   
   static void animateDestroyed() {

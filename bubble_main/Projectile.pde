@@ -24,6 +24,10 @@ class Projectile {
     return avatar.status == Helper.BROKEN;
   }
   
+  boolean isOutOfRange() {
+    return avatar.status == Helper.OUT_RANGE;
+  }
+  
   String getTag() {
     return tag;
   }
@@ -96,6 +100,19 @@ class Projectile {
     display();
   }
   
+  boolean isCollide(float x2, float y2, float diameter2) {
+    float dx = x2 - this.getX();
+    float dy = y2 - this.getY();
+    float distance = sqrt(dx*dx + dy*dy);
+    float minDist = diameter2/2 + this.getDiameter()/2;
+    return distance <= minDist;
+  }
+  
+  void destroySelf() {
+       avatar.burst();
+       PlayerManager.destroyedPrs.add(this);
+  }
+  
   void collide(ArrayList<Projectile> others, String withTag) 
   {
       if (others.size() == 0)
@@ -109,14 +126,11 @@ class Projectile {
       for (int i = 0; i < others.size(); i++) 
       {
          Projectile other = others.get(i);
-         float dx = other.getX() - avatar.x;
-         float dy = other.getY() - avatar.y;
-         float distance = sqrt(dx*dx + dy*dy);
-         float minDist = other.getDiameter()/2 + avatar.diameter/2;
          
+         boolean hit = isCollide(other.getX(), other.getY(), other.getDiameter());
          color otherColor = other.getColor();
          
-         if (distance <= minDist) 
+         if (hit) 
          {   // collision has happened
            if (otherColor == this.getColor()) {
              other.loseLife(this.power);
@@ -139,6 +153,7 @@ class Projectile {
                other.getHappy(this.power);
              }
            }
+           //check for remove dead object
            if (other.isAlive() == false) {
              other.getAvatar().burst();
              others.remove(i);
@@ -147,6 +162,7 @@ class Projectile {
              //update player score
              PlayerManager.updateScore(other.getReward());
              print("My score: ", PlayerManager.score);
+             --i;
            }
            
            break;
