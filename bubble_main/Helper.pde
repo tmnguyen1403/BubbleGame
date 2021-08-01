@@ -13,9 +13,14 @@ static class Helper
   
   
   public static float distance(int x1, int y1, int x2, int y2) {
-  float d = sqrt(pow((x1 - x2),2) + pow((y1 - y2), 2));
-  return d;
-}
+    float d = sqrt(pow((x1 - x2),2) + pow((y1 - y2), 2));
+    return d;
+  }
+  
+  public static float distanceFloat(float x1, float y1, float x2, float y2) {
+    float d = sqrt(pow((x1 - x2),2) + pow((y1 - y2), 2));
+    return d;
+  }
 
   public static boolean inrange(float d, float range) {
     return d <= range;

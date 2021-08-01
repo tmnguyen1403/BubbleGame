@@ -16,8 +16,9 @@ static class PlayerManager {
     life -= 1;
   }
   
-  static void resetLife() {
+  static void restart() {
     life = 3;
+    score = 0;
   }
   
   static void animateDestroyed() {

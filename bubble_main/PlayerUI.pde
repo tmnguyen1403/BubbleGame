@@ -9,8 +9,14 @@ class PlayerUI {
      //drawTitle();
      displayScore();
      displayLife();
+     displayLevel();
      if (PlayerManager.life <= 0) {
+       StateManager.nextState();
        drawGameOver();
+     } else if (StateManager.isEndGame())// no more level
+     {
+       StateManager.nextState();
+       drawEndGame();
      }
    }
    
@@ -31,15 +37,29 @@ class PlayerUI {
     String scoreText = "Life: " + PlayerManager.life;
     text(scoreText, width - width/5, 60 + 50);
   }
+  void displayLevel() {
+    fill(255, 0, 0);  
+    textFont(font, 40);
+    String scoreText = "Game level: " + LevelManager.getCurrent();
+    text(scoreText, width - width/3, 60 + 50 * 2);
+  }
   
   void drawGameOver() {
-    
     int fontSize = 60;
     fill(255,0,0);  
     textFont(font, 60);
     String scoreText = "Game Over";
     text(scoreText, width/fontSize, height/2);
     text("Press R to replay", width/fontSize, height/1.5);
-    StateManager.nextState();
+  }
+  
+  void drawEndGame() {
+    
+    int fontSize = 60;
+    fill(255,0,0);  
+    textFont(font, 60);
+    String scoreText = "You survived! To be continue!";
+    text(scoreText, width/fontSize, height/2);
+    text("Press R to start over", width/fontSize, height/1.5);
   }
 }

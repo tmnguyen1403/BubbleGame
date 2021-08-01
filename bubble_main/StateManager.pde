@@ -1,6 +1,7 @@
 static class StateManager {
   private static int state = 0;
   private static final int MAX_STATE = 4;
+  private static final int END_GAME = 4;
   private static PFont font = null;
   private static String FONT_FILE = "Charter-BoldItalic-24.vlw";
   private static float timer = 0;
@@ -20,8 +21,15 @@ static class StateManager {
     return state >= 3;
   }
   static boolean isDead() {
-    return state == 4;
+    return PlayerManager.life <= 0;
   }
+  static boolean isEndGame() {
+    return state == END_GAME;
+  }
+  static void setEndGame() {
+    state = END_GAME;
+  }
+  
   static void restart() {
     state = 3;
   }

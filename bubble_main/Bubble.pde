@@ -78,38 +78,17 @@ class Bubble
         // move via Euler integration
         x += vx;
         y += vy;
-        if (Helper.outOfRange(x , y, width, height, diameter/2 ,diameter/2)) {
+        if (tag == Helper.TAG_PLAYER && Helper.outOfRange(x , y, width, height, diameter/2 ,diameter/2)) {
             this.status = Helper.OUT_RANGE;
             return;
         }
-        if (tag == Helper.TAG_PLAYER) 
+        if (tag == Helper.TAG_ENEMY) 
         {
-          //outOfRange(int x, int y, int W, int H, int offsetX, int offsetY) {
-          
-          return;
+          if (y >= height - diameter/2) {
+            this.status = Helper.OUT_RANGE;
+            return;
+          }
         }
-       // the rest: reflect off the sides and top and bottom of the screen
-       if (x + diameter/2 > width) 
-       {
-           x = width - diameter/2;
-           vx *= -1; 
-       }
-       else if (x - diameter/2 < 0) 
-       {
-           x = diameter/2;
-           vx *= -1;
-       }
-
-       if (y + diameter/2 > height) 
-       {
-           y = height - diameter/2;
-           vy *= -1; 
-       } 
-       else if (y - diameter/2 < 0) 
-       {
-           y = diameter/2;
-           vy *= -1;
-       }
       
     }
   }

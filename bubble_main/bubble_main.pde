@@ -21,7 +21,7 @@ String playerSpritesheet = "./avatar/spaceship_red.png";
 Sound s;
 
 //Level
-Level currentLevel;
+Level currentLevel = null;
 
 int screenRange = 800;
 public void settings() 
@@ -36,26 +36,7 @@ void setup()
   SoundFX.setupFX(this);
   noStroke();
   smooth();
-  currentLevel = new Level(numBubbles, enemyDiameter);
-  //for (int i = 0; i < numBubbles; i++) {
-  //  //Bubble(float xin, float yin, float din, int idin, ArrayList oin) 
-  //    Bubble b = new Bubble(random(width), 10 + random(30), enemyDiameter, i);
-  //    //make buble float down
-  //     b.setVelocity(0.0, 2);
-  //     /*
-  //    if (i % 2 == 0) {
-  //      b.setVelocity(0.5, 0.0);
-  //    } else {
-  //      b.setVelocity(0.0, 0.5);
-  //    }*/
-  //    //set color for buble
-  //    b.setColor(colors[i%3]);
-  //    b.setTag(Helper.TAG_ENEMY);
-      
-  //    enemies.add(new Projectile(b, Helper.TAG_ENEMY));
-  //}
   
-  //Player(String spritesheetsource, int posX, int posY, int moveRange, int DIM, int speed)
   int playerSpeed = 15; 
   player = new Player(PlayerManager.getAvatar(colorIndex), screenRange/2, screenRange - 10, screenRange, 1, playerSpeed);
   float fps = 24.0;
@@ -100,8 +81,12 @@ void draw()
   background(0);
   s.volume(0.5);
   StateManager.updateTimer();
-  if ( (key == 82 || key == 114) && StateManager.isDead()) {
-    PlayerManager.resetLife();
+  //when player is dead and want to restart the game
+  
+  if ( keyPressed == true &&( key == 82 || key == 114) && (StateManager.isDead() || StateManager.isEndGame())) {
+    LevelManager.restart();
+    PlayerManager.restart();
+    
     StateManager.restart();
   } //restart
   if ( (keyPressed == true || mousePressed) && StateManager.isPlaying() == false) {
@@ -111,13 +96,32 @@ void draw()
   if (StateManager.isPlaying() == false) {
     StateManager.loadStory(this);
   }
-  
-  else {
-
+  if (StateManager.isDead()) {
+      playerUI.drawAll();
+      currentLevel = null;
+      player.dead();
+  }
+  if (StateManager.isPlaying()){
+    //Playing the game 
+   if (currentLevel == null) {
+     boolean hasNextLevel = LevelManager.nextLevel();
+     if (hasNextLevel == false) {
+       StateManager.setEndGame();
+     } else{
+       currentLevel = new Level(LevelManager.getNumBubbles(), enemyDiameter, LevelManager.getDifficulty());
+     }
+   }
+   //display player's avatar
+   player.update();
+   
   //test acceleration
   //float acceleration = 1;
+  //check bullets collide with enemies
+  if (currentLevel != null) {
     enemies = currentLevel.getEnemies();
-    player.update();
+    if (enemies.size() == 0) {
+      currentLevel = null;
+    }
     player.updatePlayerProjectiles(enemies);
     player.collide(enemies);
     //remove enemies
@@ -134,9 +138,13 @@ void draw()
       enemy.update();
       enemy.display();
     }
-    PlayerManager.animateDestroyed();
-    playerUI.drawAll();
   }
+  //update explosion effect
+    PlayerManager.animateDestroyed();
+  //update ui
+  playerUI.drawAll();
+  }
+  
 }
 
 //buble falling from the sky

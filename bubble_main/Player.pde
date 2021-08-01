@@ -46,6 +46,10 @@ class Player
     sprite = spritesheet.get(0, 0, W, H);//starting image of the character
   }
   
+  void dead() {
+    if (projectiles.size() > 0)
+      projectiles = new ArrayList<Projectile>();
+  }
   void playerSetup(float fps, color defaultColor)
   {
     loadAvatar(spritesheetsource);
@@ -182,7 +186,7 @@ class Player
     int i = 0;
     while (i < enemies.size()) {
       Projectile pr = enemies.get(i);
-      hit = pr.isCollide(posX, posY, H/3);
+      hit = pr.isCollide(posX, posY, W/2);
       if (hit) {
         println("Player was hit");
         pr.destroySelf();
