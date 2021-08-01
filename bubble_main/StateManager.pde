@@ -1,5 +1,5 @@
 static class StateManager {
-  private static int state = 3;
+  private static int state = 0;
   private static final int MAX_STATE = 4;
   private static PFont font = null;
   private static String FONT_FILE = "Charter-BoldItalic-24.vlw";

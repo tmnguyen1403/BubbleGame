@@ -17,6 +17,8 @@ PlayerUI playerUI;
 
 String playerSpritesheet = "./avatar/spaceship_red.png";
 
+//Volume control
+Sound s;
 
 int screenRange = 800;
 public void settings() 
@@ -46,7 +48,10 @@ void setup()
       b.setColor(colors[i%3]);
       b.setTag(Helper.TAG_ENEMY);
       
-      enemies.add(new Projectile(b, Helper.TAG_ENEMY));  
+      enemies.add(new Projectile(b, Helper.TAG_ENEMY));
+      
+      //Sound volume control
+      s = new Sound(this);
   }
   
   //Player(String spritesheetsource, int posX, int posY, int moveRange, int DIM, int speed)
@@ -66,6 +71,7 @@ void mousePressed()
       if (mouseButton == RIGHT) {
         colorIndex = (colorIndex + 1) % colors.length;
         player.changeProjectile(PlayerManager.getAvatar(colorIndex), colors[colorIndex]);
+        SoundFX.playChangeProjectile(this);
       }
       else if (mouseButton == LEFT) {
         if (StateManager.isPlaying()) {
@@ -88,6 +94,7 @@ void mouseMoved() {
 void draw() 
 {
   background(0);
+  s.volume(0.5);
   StateManager.updateTimer();
   if ( (key == 82 || key == 114) && StateManager.isDead()) {
     PlayerManager.resetLife();
