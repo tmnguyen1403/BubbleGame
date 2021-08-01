@@ -68,9 +68,11 @@ void mousePressed()
         player.changeProjectileColor(colors[colorIndex]);
       }
       else if (mouseButton == LEFT) {
-        if (player.canShoot(true)) {
-          player.shooting();
-          SoundFX.playPlayerShoot(this);
+        if (StateManager.isPlaying()) {
+          if (player.canShoot(true)) {
+            player.shooting();
+            SoundFX.playPlayerShoot(this);
+          }
         }
       }
 }
@@ -80,29 +82,44 @@ void mousePressed()
 void draw() 
 {
   background(0);
+  StateManager.updateTimer();
+  if ( (key == 82 || key == 114) && StateManager.isDead()) {
+    PlayerManager.resetLife();
+    StateManager.restart();
+  } //restart
+  if ( (keyPressed == true || mousePressed) && StateManager.isPlaying() == false) {
+    StateManager.nextState();
+   
+  }
+  if (StateManager.isPlaying() == false) {
+    StateManager.loadStory(this);
+  }
+  
+  else {
 
   //test acceleration
-  float acceleration = 1;
+  //float acceleration = 1;
   
-  player.update();
-  player.updatePlayerProjectiles(enemies);
-  player.collide(enemies);
-  //remove enemies
-  for (int i = 0; i < enemies.size(); i++) 
-    {
-      Projectile pr = enemies.get(i);
-      if (pr.isOutOfRange()) {
-        enemies.remove(i);
-        --i;
+    player.update();
+    player.updatePlayerProjectiles(enemies);
+    player.collide(enemies);
+    //remove enemies
+    for (int i = 0; i < enemies.size(); i++) 
+      {
+        Projectile pr = enemies.get(i);
+        if (pr.isOutOfRange()) {
+          enemies.remove(i);
+          --i;
+        }
       }
+    for (Projectile enemy : enemies)  
+    {
+      enemy.update();
+      enemy.display();
     }
-  for (Projectile enemy : enemies)  
-  {
-    enemy.update();
-    enemy.display();
+    PlayerManager.animateDestroyed();
+    playerUI.drawAll();
   }
-  PlayerManager.animateDestroyed();
-  playerUI.drawAll();
 }
 
 //buble falling from the sky

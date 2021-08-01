@@ -11,6 +11,10 @@ static class PlayerManager {
     life -= 1;
   }
   
+  static void resetLife() {
+    life = 3;
+  }
+  
   static void animateDestroyed() {
     for (Projectile pr : destroyedPrs) {
       //pr.getAvatar().setGrowRate(10); 

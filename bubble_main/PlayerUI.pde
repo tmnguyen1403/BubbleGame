@@ -38,5 +38,6 @@ class PlayerUI {
     String scoreText = "Game Over";
     text(scoreText, width/fontSize, height/2);
     text("Press R to replay", width/fontSize, height/1.5);
+    StateManager.nextState();
   }
 }
