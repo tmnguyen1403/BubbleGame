@@ -1,10 +1,12 @@
 class PlayerUI {
    PFont font;
+   String FONT_FILE;
    PlayerUI() {
-     font = loadFont("Papyrus-Regular-48.vlw");
+     FONT_FILE = "Charter-BoldItalic-24.vlw";
+     font = loadFont(FONT_FILE);
    }
    void drawAll() {
-     drawTitle();
+     //drawTitle();
      displayScore();
      displayLife();
      if (PlayerManager.life <= 0) {
@@ -12,22 +14,22 @@ class PlayerUI {
      }
    }
    
-   void drawTitle() {
-    fill(0, 102, 153, 128);  
-    textFont(font, 20);
-    text("Welcome to Buble World", 10, 60);
-  }
+  // void drawTitle() {
+  //  fill(0, 102, 153, 128);  
+  //  textFont(font, 20);
+  //  text("Welcome to Buble World", 10, 60);
+  //}
   void displayScore() {
-    fill(0, 102, 153, 128);  
+    fill(255, 234, 0, 128);  
     textFont(font, 30);
     String scoreText = "Score: " + PlayerManager.score;
-    text(scoreText, width / 2 + 100, 60);
+    text(scoreText, width - width/5, 60);
   }
   void displayLife() {
-    fill(0, 102, 153, 128);  
+    fill(255, 0, 0);  
     textFont(font, 40);
     String scoreText = "Life: " + PlayerManager.life;
-    text(scoreText, width / 2, 60 + 50);
+    text(scoreText, width - width/5, 60 + 50);
   }
   
   void drawGameOver() {

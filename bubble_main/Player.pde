@@ -38,13 +38,17 @@ class Player
     cooldown = 0.0;
   }
   
-
-  void playerSetup(float fps, color defaultColor)
-  {
-    spritesheet = loadImage(spritesheetsource);
+  
+  private void loadAvatar(String source) {
+    spritesheet = loadImage(source);
     W = spritesheet.width/DIM;
     H = spritesheet.height/DIM;
     sprite = spritesheet.get(0, 0, W, H);//starting image of the character
+  }
+  
+  void playerSetup(float fps, color defaultColor)
+  {
+    loadAvatar(spritesheetsource);
     //initial position, middle of screen
     posY -= H;
     
@@ -66,7 +70,9 @@ class Player
     
   }
   
-  void changeProjectileColor(color c) {
+  void changeProjectile(String avatarSrc, color c) {
+     loadAvatar(avatarSrc);
+    //initial position, middle of screen
     this.projectileColor = c;
   }
   

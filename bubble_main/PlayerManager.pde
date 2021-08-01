@@ -2,7 +2,12 @@ static class PlayerManager {
   static int score = 0;
   static int life = 3;
   static ArrayList<Projectile> destroyedPrs = new ArrayList<Projectile>(); //handle destroyed projectiles
+  private static String [] avatarSrcs = {"./avatar/spaceship_red.png","./avatar/spaceship_green.png","./avatar/spaceship_blue.png"};
   
+  static String getAvatar(int index) {
+    
+    return avatarSrcs[index % avatarSrcs.length];
+  }
   static void updateScore(int by) {
     score += by;
   }

@@ -15,7 +15,7 @@ int colorIndex = 0;
 Player player;
 PlayerUI playerUI;
 
-String playerSpritesheet = "spaceship_scale.png";
+String playerSpritesheet = "./avatar/spaceship_red.png";
 
 
 int screenRange = 800;
@@ -51,7 +51,7 @@ void setup()
   
   //Player(String spritesheetsource, int posX, int posY, int moveRange, int DIM, int speed)
   int playerSpeed = 15; 
-  player = new Player(playerSpritesheet, screenRange/2, screenRange - 10, screenRange, 1, playerSpeed);
+  player = new Player(PlayerManager.getAvatar(colorIndex), screenRange/2, screenRange - 10, screenRange, 1, playerSpeed);
   float fps = 24.0;
   player.playerSetup(fps, colors[colorIndex]);
 }
@@ -65,7 +65,7 @@ void mousePressed()
       //numBubbles++;   
       if (mouseButton == RIGHT) {
         colorIndex = (colorIndex + 1) % colors.length;
-        player.changeProjectileColor(colors[colorIndex]);
+        player.changeProjectile(PlayerManager.getAvatar(colorIndex), colors[colorIndex]);
       }
       else if (mouseButton == LEFT) {
         if (StateManager.isPlaying()) {
