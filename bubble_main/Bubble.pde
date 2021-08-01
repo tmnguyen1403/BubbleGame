@@ -11,12 +11,11 @@ class Bubble
   int id;
   int status = 0;
   float growrate = 0;
-  ArrayList others;
  
   color mycolor;
   String tag;
   
-  Bubble(float xin, float yin, float din, int idin, ArrayList oin) 
+  Bubble(float xin, float yin, float din, int idin) 
   {
     x = xin;
     y = yin;
@@ -25,8 +24,7 @@ class Bubble
     id = idin;
     vx = random(0,100)/50. - 1.;
     vy = random(0,100)/50. - 1.;
-    
-    others = oin;
+
     mycolor = color(255,255,255);
   }
   

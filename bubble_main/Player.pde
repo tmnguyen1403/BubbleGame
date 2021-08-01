@@ -106,7 +106,7 @@ class Player
      // println("press space. shoot buble");
       int id = projectiles.size() + 1;
      // print("id: ", id);
-      Bubble b = new Bubble(this.posX + W/2, this.posY, projectileDiameter, id, null);
+      Bubble b = new Bubble(this.posX + W/2, this.posY, projectileDiameter, id);
       b.setVelocity(0.0, -projectileSpeed);
       b.setTag(Helper.TAG_PLAYER);
       b.setColor(this.projectileColor);

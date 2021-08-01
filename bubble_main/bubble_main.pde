@@ -20,6 +20,9 @@ String playerSpritesheet = "./avatar/spaceship_red.png";
 //Volume control
 Sound s;
 
+//Level
+Level currentLevel;
+
 int screenRange = 800;
 public void settings() 
 {
@@ -33,32 +36,33 @@ void setup()
   SoundFX.setupFX(this);
   noStroke();
   smooth();
-  for (int i = 0; i < numBubbles; i++) {
-    //Bubble(float xin, float yin, float din, int idin, ArrayList oin) 
-      Bubble b = new Bubble(random(width), 10 + random(30), enemyDiameter, i, enemies);
-      //make buble float down
-       b.setVelocity(0.0, 2);
-       /*
-      if (i % 2 == 0) {
-        b.setVelocity(0.5, 0.0);
-      } else {
-        b.setVelocity(0.0, 0.5);
-      }*/
-      //set color for buble
-      b.setColor(colors[i%3]);
-      b.setTag(Helper.TAG_ENEMY);
+  currentLevel = new Level(numBubbles, enemyDiameter);
+  //for (int i = 0; i < numBubbles; i++) {
+  //  //Bubble(float xin, float yin, float din, int idin, ArrayList oin) 
+  //    Bubble b = new Bubble(random(width), 10 + random(30), enemyDiameter, i);
+  //    //make buble float down
+  //     b.setVelocity(0.0, 2);
+  //     /*
+  //    if (i % 2 == 0) {
+  //      b.setVelocity(0.5, 0.0);
+  //    } else {
+  //      b.setVelocity(0.0, 0.5);
+  //    }*/
+  //    //set color for buble
+  //    b.setColor(colors[i%3]);
+  //    b.setTag(Helper.TAG_ENEMY);
       
-      enemies.add(new Projectile(b, Helper.TAG_ENEMY));
-      
-      //Sound volume control
-      s = new Sound(this);
-  }
+  //    enemies.add(new Projectile(b, Helper.TAG_ENEMY));
+  //}
   
   //Player(String spritesheetsource, int posX, int posY, int moveRange, int DIM, int speed)
   int playerSpeed = 15; 
   player = new Player(PlayerManager.getAvatar(colorIndex), screenRange/2, screenRange - 10, screenRange, 1, playerSpeed);
   float fps = 24.0;
   player.playerSetup(fps, colors[colorIndex]);
+  
+  //Sound volume control
+  s = new Sound(this);
 }
 
 void mousePressed()
@@ -112,7 +116,7 @@ void draw()
 
   //test acceleration
   //float acceleration = 1;
-  
+    enemies = currentLevel.getEnemies();
     player.update();
     player.updatePlayerProjectiles(enemies);
     player.collide(enemies);

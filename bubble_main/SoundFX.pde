@@ -3,10 +3,10 @@ import processing.sound.*;
 
 static class SoundFX {
   private static String srcFolder = "./soundfx/";
-  private static String deadFile = "mixkit-arcade-space-shooter-dead-notification-272.wav";
-  private static String shootFile = "fire.wav";
-  private static String changeProjectileFile = "change_projectile.wav";
-   private static String backgroundFile = "background.wav";
+  private static String deadFile = "mixkit-arcade-space-shooter-dead-notification-272.mp3";
+  private static String shootFile = "fire.mp3";
+  private static String changeProjectileFile = "change_projectile.mp3";
+   private static String backgroundFile = "background.mp3";
   
   private static SoundFile deadSound;
   private static SoundFile shootSound;
