@@ -1,6 +1,6 @@
-Use arrow keys or (A, D) to move left and right
-Left mouse click to shoot
-Right mouse click to change the color of your bubble
+Use ARROW keys or (A, D) to move left and right
+LEFT MOUSE click to shoot
+RIGHT MOUSE click to change the color of your bubble
 
 You can only destroy enemy using the same color bullet. Shooting an
 enemy with the wrong color will cause unexpected effect.

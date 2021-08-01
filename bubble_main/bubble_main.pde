@@ -77,7 +77,13 @@ void mousePressed()
       }
 }
 
-
+void mouseMoved() {
+  if (StateManager.isPlaying()){
+    println("I moved my mouse");
+    println("Mouse X: ", mouseX);
+    player.moveWithMouse();
+  }
+}
 
 void draw() 
 {

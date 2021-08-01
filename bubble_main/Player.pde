@@ -69,7 +69,17 @@ class Player
   void changeProjectileColor(color c) {
     this.projectileColor = c;
   }
-
+  
+  void moveWithMouse() {
+    // move left
+    if (mouseX < posX) {
+      posX -= speed;
+    }
+    //move right
+    if (mouseX > posX) {
+      posX += speed;
+    }
+  }
   boolean moving(int x, int y) {
       
       boolean willMove = false;

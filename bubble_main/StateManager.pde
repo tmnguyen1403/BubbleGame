@@ -1,7 +1,8 @@
 static class StateManager {
   private static int state = 0;
   private static final int MAX_STATE = 4;
-  static PFont font = null;
+  private static PFont font = null;
+  private static String FONT_FILE = "Charter-BoldItalic-24.vlw";
   private static float timer = 0;
   private static float fps = 24; 
   private static float cooldown = 12/fps;
@@ -34,7 +35,7 @@ static class StateManager {
       return;
     }
     if (font == null) {
-      font = p.loadFont("Papyrus-Regular-48.vlw");
+      font = p.loadFont(FONT_FILE);
     }
     p.fill(255, 204, 0, 255); 
     int fontSize = 20;
@@ -44,14 +45,14 @@ static class StateManager {
     int index = 0;
     int nb_chars_on_line = p.width / fontSize * 2;
     for (String line : lines) {
-      println(line);
+      //println(line);
       StringBuilder sb = new StringBuilder(line); 
       int position = nb_chars_on_line;
       while (position < sb.length()) {
-         sb.insert(position, '\n');
+         sb.insert(position, "\n\n");
          position += nb_chars_on_line;
       }
-      p.text(sb.toString(), 20, 50 + index * fontSize);
+      p.text(sb.toString(), 20, p.height / 8 + index * fontSize);
       index += position / fontSize + 1;
     }
     p.fill(255, 0, 0, 255);
@@ -61,7 +62,7 @@ static class StateManager {
   
   static void loadStory2(PApplet p) {
     if (font == null) {
-      font = p.loadFont("Papyrus-Regular-48.vlw");
+      font = p.loadFont(FONT_FILE);
     }
     p.fill(255, 204, 0, 255); 
     int fontSize = 20;
@@ -70,17 +71,18 @@ static class StateManager {
     String [] lines = p.loadStrings(storyFile);
     int index = 0;
     int nb_chars_on_line = p.width / fontSize * 2;
+    
     for (String line : lines) {
       if (line.contains("continue"))
         break;
-      println(line);
+      //println(line);
       StringBuilder sb = new StringBuilder(line); 
       int position = nb_chars_on_line;
       while (position < sb.length()) {
-         sb.insert(position, '\n');
+         sb.insert(position, "\n\n");
          position += nb_chars_on_line;
       }
-      p.text(sb.toString(), 20, 200 + index * fontSize);
+      p.text(sb.toString(), 20, p.height / 8 + index * fontSize);
       index += position / fontSize;
     }
     p.fill(255, 0, 0, 255);
@@ -90,7 +92,7 @@ static class StateManager {
   
   static void loadTutorial(PApplet p) {
     if (font == null) {
-      font = p.loadFont("Papyrus-Regular-48.vlw");
+      font = p.loadFont(FONT_FILE);
     }
     p.fill(255, 204, 0, 255); 
     int fontSize = 20;
@@ -105,7 +107,7 @@ static class StateManager {
       StringBuilder sb = new StringBuilder(line); 
       int position = nb_chars_on_line;
       while (position < sb.length()) {
-         sb.insert(position, '\n');
+         sb.insert(position, "\n\n");
          position += nb_chars_on_line;
       }
       p.text(sb.toString(), 20, 100 + index * fontSize);
