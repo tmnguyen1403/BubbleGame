@@ -55,11 +55,11 @@ class PlayerUI {
   
   void drawEndGame() {
     
-    int fontSize = 60;
+    int fontSize = 40;
     fill(255,0,0);  
-    textFont(font, 60);
-    String scoreText = "You survived! To be continue!";
-    text(scoreText, width/fontSize, height/2);
+    textFont(font, fontSize);
+    String scoreText = "You survived! To be continued! \n Creator: Minh Nguyen - UHD \n 08012021";
+    text(scoreText, width/fontSize, height/4);
     text("Press R to start over", width/fontSize, height/1.5);
   }
 }

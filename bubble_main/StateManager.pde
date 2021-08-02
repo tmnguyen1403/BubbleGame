@@ -1,5 +1,5 @@
 static class StateManager {
-  private static int state = 0;
+  
   private static final int MAX_STATE = 4;
   private static final int END_GAME = 4;
   private static PFont font = null;
@@ -7,6 +7,7 @@ static class StateManager {
   private static float timer = 0;
   private static float fps = 24; 
   private static float cooldown = 12/fps;
+  private static int state = 0;
   static void nextState() {
     if (timer < cooldown)
       return;
