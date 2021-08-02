@@ -68,13 +68,13 @@ void mousePressed()
       }
 }
 
-void mouseMoved() {
-  if (StateManager.isPlaying()){
-    println("I moved my mouse");
-    println("Mouse X: ", mouseX);
-    player.moveWithMouse();
-  }
-}
+//void mouseMoved() {
+//  if (StateManager.isPlaying()){
+//    println("I moved my mouse");
+//    println("Mouse X: ", mouseX);
+//    player.moveWithMouse();
+//  }
+//}
 
 void draw() 
 {
@@ -100,6 +100,7 @@ void draw()
       playerUI.drawAll();
       currentLevel = null;
       player.dead();
+      PlayerManager.dead(this);
   }
   if (StateManager.isPlaying()){
     //Playing the game 
@@ -140,7 +141,7 @@ void draw()
     }
   }
   //update explosion effect
-    PlayerManager.animateDestroyed();
+    PlayerManager.animateDestroyed(this);
   //update ui
   playerUI.drawAll();
   }

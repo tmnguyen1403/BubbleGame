@@ -47,8 +47,9 @@ class Player
   }
   
   void dead() {
-    if (projectiles.size() > 0)
+    if (projectiles.size() > 0) {
       projectiles = new ArrayList<Projectile>();
+    }
   }
   void playerSetup(float fps, color defaultColor)
   {

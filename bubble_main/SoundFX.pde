@@ -3,15 +3,17 @@ import processing.sound.*;
 
 static class SoundFX {
   private static String srcFolder = "./soundfx/";
-  private static String deadFile = "mixkit-arcade-space-shooter-dead-notification-272.mp3";
+  private static String deadFile = "gameover.mp3";
   private static String shootFile = "fire.mp3";
   private static String changeProjectileFile = "change_projectile.mp3";
    private static String backgroundFile = "background.mp3";
+  private static String explosionFile = "explosion.mp3";
   
   private static SoundFile deadSound;
   private static SoundFile shootSound;
   private static SoundFile changeSound;
   private static SoundFile backgroundSound;
+  private static SoundFile explosionSound;
   
   private static float background_amp = 0.1;
   private static float sound_amp = 0.3;
@@ -24,11 +26,14 @@ static class SoundFX {
     shootSound = new SoundFile(p, getFile(shootFile));
     changeSound = new SoundFile(p, getFile(changeProjectileFile));
     backgroundSound = new SoundFile(p, getFile(backgroundFile));
-    
+    explosionSound = new SoundFile(p, getFile(explosionFile));
     
     playBackground(p);
   }
   
+  static void playExplosion(PApplet p) {
+    explosionSound.play(1, sound_amp - 0.25);
+  }
   static void playPlayerDead(PApplet p) {
     deadSound.play(1, sound_amp);
   }
